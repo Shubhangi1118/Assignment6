@@ -3,11 +3,11 @@ import React from "react";
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 export {};
 type User = {
-    id: string;
+    _id: string;
     Name: string;
     Country: string;
     AnnualIncome: number;
-    EmailIdLists: Array<string>;
+    EmailIdsList: Array<string>;
 };
  
 function UserCrud() {
@@ -31,11 +31,11 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
     event.preventDefault();
     try {
       await axios.post("https://localhost:7205/api/User", {
-        
+        _id : "",
         Name: Name,
         Country: Country,
         AnnualIncome: AnnualIncome,
-        EmailIdLists : EmailIdLists,
+        EmailIdsList : ["shubhangichauhanmails18@gmail.com"]
       
       });
       alert("Student Registation Successfully");
@@ -53,15 +53,15 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
   }
  
   async function editUser(user: User ) {
-    setId(user.id);
+    setId(user._id);
     setName(user.Name);
     setCountry(user.Country);
     setAnnualIncome(user.AnnualIncome);
-    setEmailIdlists(user.EmailIdLists);
+    setEmailIdlists(user.EmailIdsList);
   }
  
-  async function DeleteUser(id :string) {
-  await axios.delete("https://localhost:7205/api/User/" + id);
+  async function DeleteUser(_id :string) {
+  await axios.delete("https://localhost:7205/api/User/" + _id);
    alert("User deleted Successfully");
    setId("");
    setName("");
@@ -75,15 +75,15 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
     event.preventDefault();
     try {
  
-  await axios.patch('https://jsonplaceholder.typicode.com/posts/1',
+  await axios.put("https://localhost:7205/api/User/",
  
  
         {
-        id: id,
+        _id: " ",
         Name: Name,
         Country: Country,
         AnnualIncome: AnnualIncome,
-        EmailIdLists: EmailIdLists,
+        EmailIdsList:["shubhangichauhanmails18@gmail.com"]
 
  
         }
@@ -198,11 +198,11 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
           return (
             <tbody>
               <tr>
-                <th scope="row">{user.id} </th>
+                <th scope="row">{user._id} </th>
                 <td>{user.Name}</td>
                 <td>{user.Country}</td>
                 <td>{user.AnnualIncome}</td>
-                <td>{user.EmailIdLists}</td>
+                <td>{user.EmailIdsList}</td>
                 
                 
                 <td>
@@ -216,7 +216,7 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
                   <button
                     type="button"
                     className="btn btn-danger"
-                    onClick={() => DeleteUser(user.id)}
+                    onClick={() => DeleteUser(user._id)}
                   >
                     Delete
                   </button>
