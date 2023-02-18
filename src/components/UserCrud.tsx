@@ -12,12 +12,13 @@ type User = {
  
 function UserCrud() {
  
-const [id, setId] = React.useState<string>("");
+const [_id, setId] = React.useState<string>("");
 const [Name, setName] = React.useState<string>("");
 const [Country, setCountry] = React.useState<string>("");
 const [AnnualIncome, setAnnualIncome] = React.useState<number>(0);
-const [EmailIdLists,setEmailIdlists] = React.useState<Array<string>>([]);
+const [EmailIdsList,setEmailIdsList] = React.useState<Array<string>>([]);
 const [Users, setUsers] = React.useState<Array<User>>([]);
+
   React.useEffect(() => {
     (async () => await Load())();
   }, []);
@@ -35,7 +36,7 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
         Name: Name,
         Country: Country,
         AnnualIncome: AnnualIncome,
-        EmailIdsList : ["shubhangichauhanmails18@gmail.com"]
+        EmailIdsList : EmailIdsList,
       
       });
       alert("Student Registation Successfully");
@@ -43,7 +44,7 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
           setName("");
           setCountry("");
           setAnnualIncome(0);
-          setEmailIdlists([]);
+          setEmailIdsList([]);
       
     
       Load();
@@ -57,7 +58,7 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
     setName(user.Name);
     setCountry(user.Country);
     setAnnualIncome(user.AnnualIncome);
-    setEmailIdlists(user.EmailIdsList);
+    setEmailIdsList(user.EmailIdsList);
   }
  
   async function DeleteUser(_id :string) {
@@ -67,7 +68,7 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
    setName("");
    setCountry("");
    setAnnualIncome(0);
-   setEmailIdlists([]);
+   setEmailIdsList([]);
    Load();
   }
  
@@ -75,15 +76,15 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
     event.preventDefault();
     try {
  
-  await axios.put("https://localhost:7205/api/User/",
+  await axios.put("https://localhost:7205/api/User/"+_id,
  
  
         {
-        _id: " ",
+        _id: _id,
         Name: Name,
         Country: Country,
         AnnualIncome: AnnualIncome,
-        EmailIdsList:["shubhangichauhanmails18@gmail.com"]
+        EmailIdsList:EmailIdsList
 
  
         }
@@ -93,7 +94,7 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
       setName("");
       setCountry("");
       setAnnualIncome(0);
-      setEmailIdlists([]);
+      setEmailIdsList([]);
     
       Load();
     } catch (err) {
@@ -113,7 +114,7 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
               className="form-control"
               id="_id"
               hidden
-              value={id}
+              value={_id}
               onChange={(event) => {
                 setId(event.target.value);
               }}
@@ -158,16 +159,19 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
             />
           </div>
           <div className="form-group">
-            <label>EmailIdLists</label>
+            <label>EmailIdlists</label>
             <input
               type="text" 
               className="form-control"
-              id="EmailIdLists"
-              value={EmailIdLists}
+              id="EmailIdlists"
+              value={EmailIdsList}
+
 
               onChange={(event) => {
-                setCountry(event.target.value);
+
+                setEmailIdsList(event.target.value.split(','));
               }}
+              
             />
           </div>
           <div>
