@@ -206,7 +206,7 @@ const [Users, setUsers] = React.useState<Array<User>>([]);
                 <td>{user.Name}</td>
                 <td>{user.Country}</td>
                 <td>{user.AnnualIncome}</td>
-                <td>{user.EmailIdsList}</td>
+                <td>{user.EmailIdsList.join(" | ")}</td>
                 
                 
                 <td>
